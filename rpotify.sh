@@ -9,6 +9,7 @@ duration=`dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpr
 minutes=$((duration/60))
 seconds=$((duration%60))
 uri=`dbus-send --print-reply --session --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | grep spotify:track | cut -d ":" -f3 | cut -d '"' -f1 | sed -n '1p'`
+status=`dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'PlaybackStatus' | grep string | cut -d '"' -f2`
 
 bold=`tput bold`
 normal=`tput sgr0`
@@ -56,6 +57,7 @@ case "$1" in
 		stop) 			$PLAYER.Stop 		1>/dev/null 	;;
 		next) 			$PLAYER.Next 		1>/dev/null 	;;
 		prev) 			$PLAYER.Previous 	1>/dev/null 	;;
+		status)			echo $status 						;;
 		up) 			control 'ctrl+Up' 					;;
 		down) 			control 'ctrl+Down'					;;
 		shuffle) 		control 'ctrl+s' 					;;
