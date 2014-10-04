@@ -1,14 +1,16 @@
 #Rpotify
 
-Features:
+**Current features:**
 
-- Play/Pause
-- Stop
-- Shuffle
-- Repeat
+- Play/Pause/Stop
+- Next/Previous
+- Shuffle/Repeat
 - Volume up/down
-- Find song/album/artist
 - Now Playing
-- Information
+- Information track
+
+**Future features:**
+
+- Find song/album/artist
 - Download track/cover
 - ...
