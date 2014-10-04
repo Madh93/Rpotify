@@ -39,6 +39,16 @@ function nowplaying
 	echo "${bold}Now playing: ${normal}$title - $artist"
 }
 
+function information
+{
+	echo "${bold}Title: ${normal}$title"
+	echo "${bold}Artist: ${normal}$artist"
+	echo "${bold}Album: ${normal}$album"
+	echo "${bold}Year: ${normal}$year"
+	echo "${bold}Duration: ${normal}$minutes' $seconds''"
+	echo "${bold}URI: ${normal}$uri"
+}
+
 
 case "$1" in
 
@@ -51,5 +61,6 @@ case "$1" in
 		shuffle) 		control 'ctrl+s' 					;;
 		repeat) 		control 'ctrl+r' 					;;
 		now)			nowplaying							;;
+		info)			information							;;
         *)				echo "Bad argument" 				;;
 esac
