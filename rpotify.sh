@@ -17,3 +17,13 @@ if [ -z $DBUS_SESSION_BUS_ADDRESS ]; then
 		exit 1
 	fi
 fi
+
+
+case "$1" in
+
+        play | pause)	$PLAYER.PlayPause 	1>/dev/null ;;
+		stop) 			$PLAYER.Stop 		1>/dev/null ;;
+		next) 			$PLAYER.Next 		1>/dev/null ;;
+		prev) 			$PLAYER.Previous 	1>/dev/null ;;
+        *)				echo "Bad argument" 			;;
+esac
