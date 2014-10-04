@@ -6,7 +6,10 @@ artist=`dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris
 album=`dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata'|egrep -A 1 "album"|egrep -v "album"|cut -b 44-|cut -d '"' -f 1|egrep -v ^$`
 year=`dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | grep T00 | cut -d '"' -f2  | cut -d '-' -f1`
 duration=`dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | grep uint64 | cut -d "u" -f2 | cut -d " " -f2`
+minutes=$((duration/60))
+seconds=$((duration%60))
 uri=`dbus-send --print-reply --session --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | grep spotify:track | cut -d ":" -f3 | cut -d '"' -f1 | sed -n '1p'`
+
 
 # Check if DBUS_SESSION is set
 if [ -z $DBUS_SESSION_BUS_ADDRESS ]; then
@@ -23,6 +26,11 @@ if [ -z $DBUS_SESSION_BUS_ADDRESS ]; then
 	fi
 fi
 
+function control
+{
+	xdotool search --name 'Spotify - Linux Preview' key --window %@ $1
+}
+
 
 case "$1" in
 
@@ -30,5 +38,9 @@ case "$1" in
 		stop) 			$PLAYER.Stop 		1>/dev/null ;;
 		next) 			$PLAYER.Next 		1>/dev/null ;;
 		prev) 			$PLAYER.Previous 	1>/dev/null ;;
+		up) 			control 'ctrl+Up' 				;;
+		down) 			control 'ctrl+Down' 			;;
+		shuffle) 		control 'ctrl+s' 				;;
+		repeat) 		control 'ctrl+r' 				;;
         *)				echo "Bad argument" 			;;
 esac
