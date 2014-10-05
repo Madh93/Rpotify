@@ -14,3 +14,9 @@
 - Find song/album/artist
 - Download track/cover
 - ...
+
+###Dependencies
+
+For Volume up/down and Shuffle/Repeat is necessary xdotool:
+
+    sudo apt-get install xdotool
