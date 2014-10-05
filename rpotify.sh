@@ -8,7 +8,7 @@ year=`dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/M
 duration=`dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | grep uint64 | cut -d "u" -f2 | cut -d " " -f2`
 minutes=$((duration/60000000))
 seconds=$(((duration/1000000)%60))
-id=`dbus-send --print-reply --session --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | grep spotify:track | cut -d ":" -f3 | cut -d '"' -f1 | sed -n '1p'`
+id=`dbus-send --print-reply --session --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | grep spotify:track | sed -n '1p' | cut -d '"' -f2`
 status=`dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'PlaybackStatus' | grep string | cut -d '"' -f2`
 
 bold=`tput bold`
@@ -47,7 +47,7 @@ function information
 	echo "${bold}Album: ${normal}$album"
 	echo "${bold}Year: ${normal}$year"
 	echo "${bold}Duration: ${normal}$minutes' $seconds''"
-	echo "${bold}ID: ${normal}$uri"
+	echo "${bold}ID: ${normal}$id"
 }
 
 
