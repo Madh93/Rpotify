@@ -30,7 +30,12 @@ fi
 
 function control
 {
-	xdotool search --name 'Spotify - Linux Preview' key --window %@ $1
+	xdotool_path=`which xdotool`
+	if [ -z $xdotool_path ]; then
+		echo "WARNING: xdotool doesn't installed. Please install xdotool."
+	else
+		xdotool search --name 'Spotify - Linux Preview' key --window %@ $1
+	fi
 }
 
 function nowplaying
