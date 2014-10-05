@@ -6,8 +6,6 @@ artist=`dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris
 album=`dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata'|egrep -A 1 "album"|egrep -v "album"|cut -b 44-|cut -d '"' -f 1|egrep -v ^$`
 year=`dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | grep T00 | cut -d '"' -f2  | cut -d '-' -f1`
 duration=`dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | grep uint64 | cut -d "u" -f2 | cut -d " " -f2`
-minutes=$((duration/60000000))
-seconds=$(((duration/1000000)%60))
 id=`dbus-send --print-reply --session --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | grep spotify:track | sed -n '1p' | cut -d '"' -f2`
 status=`dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'PlaybackStatus' | grep string | cut -d '"' -f2`
 
@@ -46,7 +44,7 @@ function information
 	echo "${bold}Artist: ${normal}$artist"
 	echo "${bold}Album: ${normal}$album"
 	echo "${bold}Year: ${normal}$year"
-	echo "${bold}Duration: ${normal}$minutes' $seconds''"
+	echo "${bold}Duration: ${normal}$((duration/60000000))' $(((duration/1000000)%60))''"
 	echo "${bold}ID: ${normal}$id"
 }
 
