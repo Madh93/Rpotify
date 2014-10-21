@@ -20,3 +20,5 @@
 For Volume up/down and Shuffle/Repeat is necessary xdotool:
 
     sudo apt-get install xdotool
+
+To find songs and playlist is neccessary [Ruby](https://github.com/ruby/ruby) and [rspotify gem](https://github.com/guilhermesad/rspotify)
