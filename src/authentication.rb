@@ -1,9 +1,10 @@
 require 'rspotify'
 
 
+credentials_path = File.expand_path("../../config/credentials.txt", __FILE__)
 credentials = []
 
-File.open('../config/credentials.txt', 'r') { |f|
+File.open(credentials_path, 'r') { |f|
   f.each_line do |line|
     credentials.push line
   end
