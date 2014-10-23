@@ -1,5 +1,6 @@
 #!/bin/bash
 
+MY_PATH="`dirname \"$0\"`"
 DBUS_SEND="dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2"
 PROPERTIES="org.freedesktop.DBus.Properties.Get"
 
@@ -56,7 +57,6 @@ function information
 	echo "${bold}ID: ${normal}$id"
 }
 
-
 case "$1" in
 
 		play | pause)	$PLAYER.PlayPause 	1>/dev/null 	;;
@@ -71,5 +71,6 @@ case "$1" in
 		repeat) 		control 'ctrl+r' 					;;
 		now)			nowplaying							;;
 		info)			information							;;
+		search)			ruby $MY_PATH/src/search.rb $@		;;
         *)				echo "Bad argument" 				;;
 esac
