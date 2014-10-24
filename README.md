@@ -8,10 +8,11 @@
 - Volume up/down
 - Now Playing
 - Information track
+- Search song
 
 **Future features:**
 
-- Find song/album/artist
+- Search album/artist
 - Download track/cover
 - ...
 
@@ -21,4 +22,8 @@ For Volume up/down and Shuffle/Repeat is necessary xdotool:
 
     sudo apt-get install xdotool
 
-To find songs and playlist is neccessary [Ruby](https://github.com/ruby/ruby) and [rspotify gem](https://github.com/guilhermesad/rspotify)
+To find songs and playlist is necessary:
+
+- [Ruby](https://github.com/ruby/ruby)
+- [rspotify gem](https://github.com/guilhermesad/rspotify)
+- [terminal-table gem](https://github.com/tj/terminal-table)
