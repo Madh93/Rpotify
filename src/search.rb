@@ -20,7 +20,7 @@ class Search
 			seg = (t.duration_ms/1000)%60
 			duration = min.to_s + "'" + seg.to_s + "''"
 				
-			rows << [i+1,t.name,artist,duration,t.popularity.to_s+"%",t.album.name]
+			rows << [i+1,t.name[0..40],artist[0..30],duration,t.popularity.to_s+"%",t.album.name[0..30]]
 		end
 
 		 table = Terminal::Table.new :title => "Showing results for \e[1m#{@query}\e[0m", :headings => ["#","Song","Artist","Duration","Popularity","Album"], :rows => rows
