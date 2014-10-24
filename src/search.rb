@@ -1,6 +1,8 @@
 require_relative 'authentication'
 require 'terminal-table'
 
+$RPOTIFY = File.expand_path("../../rpotify.sh", __FILE__)
+
 class Search
 
 	def initialize query
@@ -10,6 +12,7 @@ class Search
 	def bySong
 
 		tracks = RSpotify::Base.search(@query, 'track')
+		max_founds = tracks.size
 		rows = []
 
 		tracks.each_with_index do |t,i|
@@ -23,8 +26,16 @@ class Search
 			rows << [i+1,t.name[0..40],artist[0..30],duration,t.popularity.to_s+"%",t.album.name[0..30]]
 		end
 
-		 table = Terminal::Table.new :title => "Showing results for \e[1m#{@query}\e[0m", :headings => ["#","Song","Artist","Duration","Popularity","Album"], :rows => rows
-		 puts table
+		table = Terminal::Table.new :title => "Showing results for \e[1m#{@query}\e[0m", :headings => ["#","Song","Artist","Duration","Popularity","Album"], :rows => rows
+		puts table
+
+		while 1
+			print "\e[1mChoose:\e[0m "
+			option = STDIN.gets.chomp.to_i
+			option -= 1
+			exit if (option >= max_founds) || (option < 0)
+			system("#{$RPOTIFY} uri string:#{tracks[option].uri}")
+		end
 	end
 
 	def byAlbum
