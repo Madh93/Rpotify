@@ -1,5 +1,23 @@
 #!/bin/bash
 
+
+# Check if DBUS_SESSION is set
+if [ -z $DBUS_SESSION_BUS_ADDRESS ]; then
+
+	user=`whoami`
+	pid=`pgrep -o -u $user spotify`
+	environ="/proc/$pid/environ"
+
+	if [ -e $environ ]; then
+		export `grep -z DBUS_SESSION_BUS_ADDRESS $environ`
+	else
+		echo "Unable to set DBUS_SESSION_BUS_ADDRESS"
+		exit 1
+	fi
+fi
+
+
+# General variables
 MY_PATH="`dirname \"$0\"`"
 DBUS_SEND="dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2"
 PROPERTIES="org.freedesktop.DBus.Properties.Get"
@@ -17,21 +35,7 @@ bold=`tput bold`
 normal=`tput sgr0`
 
 
-# Check if DBUS_SESSION is set
-if [ -z $DBUS_SESSION_BUS_ADDRESS ]; then
-
-	user=`whoami`
-	pid=`pgrep -o -u $user spotify`
-	environ="/proc/$pid/environ"
-
-	if [ -e $environ ]; then
-		export `grep -z DBUS_SESSION_BUS_ADDRESS $environ`
-	else
-		echo "Unable to set DBUS_SESSION_BUS_ADDRESS"
-		exit 1
-	fi
-fi
-
+# Functions
 function control
 {
 	xdotool_path=`which xdotool`
@@ -57,6 +61,8 @@ function information
 	echo "${bold}ID: ${normal}$id"
 }
 
+
+# Main
 case "$1" in
 
 		play | pause)	$PLAYER.PlayPause 	1>/dev/null 	;;
