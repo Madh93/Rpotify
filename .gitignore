@@ -1,2 +1,2 @@
 *.yml
-credentials.txt
+config/credentials.txt
