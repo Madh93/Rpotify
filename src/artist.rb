@@ -13,7 +13,7 @@ class Artist
     private
 
     def setName
-        @metadata.name[0..30]
+        @metadata.name[0..40]
     end
 
     def setGenres

@@ -1,6 +1,7 @@
 require_relative 'authentication'
 require_relative 'song'
 require_relative 'album'
+require_relative 'artist'
 require 'terminal-table'
 require 'rspotify'
 
@@ -43,7 +44,17 @@ class Search
 	end
 
 	def byArtist
-		puts "artist: " + @query
+		founds = RSpotify::Base.search(@query, 'artist')
+		rows = []
+
+		founds.each_with_index do |f,i|
+			a = Artist.new(f)
+			rows << [i+1,a.name,a.popularity,a.genres]
+		end				
+
+		table = Terminal::Table.new :title => "Showing results for \e[1m#{@query}\e[0m as Artist", :headings => ["#","Artist","Popularity","Genres"], :rows => rows
+		puts table
+		chooseOption(founds,founds.size)			
 	end
 
 	def chooseOption founds, max
