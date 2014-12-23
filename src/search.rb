@@ -13,7 +13,6 @@ class Search
 	end
 
 	def bySong
-
 		founds = RSpotify::Base.search(@query, 'track')
 		max_founds = founds.size
 		rows = []
@@ -25,14 +24,22 @@ class Search
 
 		table = Terminal::Table.new :title => "Showing results for \e[1m#{@query}\e[0m", :headings => ["#","Song","Artist","Duration","Popularity","Album"], :rows => rows
 		puts table
-		exit if max_founds == 0
-
-		chooseOption founds,max_founds
+		chooseOption(founds,max_founds)
 	end
 
 	def byAlbum
-		puts "album: " + @query
-		#albums = RSpotify::Base.search(@query, 'album')
+		founds = RSpotify::Base.search(@query, 'album')
+		max_founds = founds.size
+		rows = []
+
+		founds.each_with_index do |f,i|
+			a = Album.new(f)
+			rows << [i+1,a.name,a.artist,a.released,a.popularity,a.genres]
+		end		
+
+		table = Terminal::Table.new :title => "Showing results for \e[1m#{@query}\e[0m as Album", :headings => ["#","Song","Artist","Released","Popularity","Genres"], :rows => rows
+		puts table
+		chooseOption(founds,max_founds)		
 	end
 
 	def byArtist
@@ -40,6 +47,9 @@ class Search
 	end
 
 	def chooseOption founds, max
+
+		exit if max == 0
+
 		loop do
 			print "\e[1mChoose:\e[0m "
 			option = STDIN.gets.chomp.to_i
