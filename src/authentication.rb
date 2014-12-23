@@ -13,5 +13,6 @@ File.open(credentials_path, 'r') { |f|
 client_id = credentials[1].delete(" \n").split('=')[1]
 client_secret = credentials[2].delete(" \n").split('=')[1]
 
-
-RSpotify::authenticate(client_id, client_secret)
+if !client_id.nil? and !client_secret.nil?
+    RSpotify::authenticate(client_id, client_secret)
+end
