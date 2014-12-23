@@ -4,6 +4,25 @@ Rpotify is a tool for managing Spotify remotely without GUI, only by CLI.
 
 ![Alt text](http://oi58.tinypic.com/296hlqq.jpg "Sample of Rpotify")
 
+##Features
+
+**Current features:**
+
+- Play/Pause/Stop
+- Next/Previous
+- Shuffle/Repeat
+- Volume up/down
+- Now Playing
+- Information track
+- Search song/album/artist
+
+**Future features:**
+
+- Order searches
+- Access to personal lists
+- Download track/cover
+- ...
+
 ##How to install
 
 ###Dependencies
@@ -35,23 +54,3 @@ To list all commands:
 To search music:
 
     ./rpotify.sh search [[-s|--song]|[--album]|[-a|--artist]] text_search
-
-
-##Features
-
-**Current features:**
-
-- Play/Pause/Stop
-- Next/Previous
-- Shuffle/Repeat
-- Volume up/down
-- Now Playing
-- Information track
-- Search song/album/artist
-
-**Future features:**
-
-- Order searches
-- Access to personal lists
-- Download track/cover
-- ...
