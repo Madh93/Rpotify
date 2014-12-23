@@ -15,19 +15,19 @@ class Song
     private
 
     def setName
-        @metadata.name[0..40]
+        @metadata.name[0..30]
     end
 
     def setArtist
         if @metadata.artists.size > 1
-            "#{@metadata.artists[0].name}, #{@metadata.artists[1].name}"[0..30]
+            "#{@metadata.artists[0].name}, #{@metadata.artists[1].name}"[0..25]
         else
-            @metadata.artists[0].name[0..30]
+            @metadata.artists[0].name[0..25]
         end     
     end
 
     def setAlbum
-        @metadata.album.name[0..30]
+        @metadata.album.name[0..25]
     end
 
     def setDuration
