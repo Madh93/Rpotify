@@ -42,7 +42,7 @@ function control
 	if [ -z $xdotool_path ]; then
 		echo "WARNING: xdotool doesn't installed. Please install xdotool."
 	else
-		xdotool search --name 'Spotify' key --window %@ $1
+		DISPLAY=:0 xdotool search --name 'Spotify' key --window %@ $1
 	fi
 }
 
