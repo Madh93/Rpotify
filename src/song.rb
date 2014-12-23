@@ -1,7 +1,7 @@
 
 class Song
 
-    attr_reader :name, :artist, :album, :duration, :popularity
+    attr_reader :name, :artist, :album, :duration, :popularity, :uri
 
     def initialize metadata
         @metadata = metadata
@@ -10,6 +10,7 @@ class Song
         @album = setAlbum
         @duration = setDuration
         @popularity = setPopularity
+        @uri = setUri
     end
 
     private
@@ -31,11 +32,15 @@ class Song
     end
 
     def setDuration
-        "#{@metadata.duration_ms/60000}' #{(@metadata.duration_ms/1000)%60}''"        
+        "#{@metadata.duration_ms/60000}'#{(@metadata.duration_ms/1000)%60}''"        
     end
 
     def setPopularity
-        "#{@metadata.popularity}"
+        "#{@metadata.popularity}%"
+    end
+
+    def setUri
+        @metadata.uri
     end
 
 end
