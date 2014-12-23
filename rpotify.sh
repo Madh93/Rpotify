@@ -78,5 +78,6 @@ case "$1" in
 		now)			nowplaying							;;
 		info)			information							;;
 		search)			ruby $MY_PATH/src/search.rb $@		;;
-        *)				echo "Bad argument" 				;;
+		help)			/bin/bash usage.sh 					;;
+        *)				echo -e "rpotify: unknown argument\nRun 'rpotify help' for usage"	;;
 esac
