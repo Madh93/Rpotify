@@ -8,11 +8,11 @@
 - Volume up/down
 - Now Playing
 - Information track
-- Search song/album
+- Search song/album/artist
 
 **Future features:**
 
-- Search artist
+- Order searches
 - Download track/cover
 - ...
 
