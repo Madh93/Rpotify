@@ -8,6 +8,8 @@ $RPOTIFY = File.expand_path("../../rpotify.sh", __FILE__)
 
 class Search
 
+	attr_accessor :query
+
 	def initialize query
 		@query = query
 	end
@@ -64,5 +66,7 @@ case ARGV[1]
 	when "-s","--song" then search.bySong
 	when "--album" then search.byAlbum
 	when "-a","--artist" then search.byArtist
-	else puts "Bad argument"
+	else 
+		search.query = "#{ARGV[1]} #{search.query}"
+		search.bySong
 end
