@@ -1,14 +1,14 @@
 
 class Album
 
-    attr_reader :name, :artist, :genres, :release, :popularity
+    attr_reader :name, :artist, :genres, :released, :popularity
 
     def initialize metadata
         @metadata = metadata
         @name = setName
         @artist = setArtist
         @genres = setGenres
-        @release = setRelease
+        @released = setReleased
         @popularity = setPopularity
     end
 
@@ -27,9 +27,15 @@ class Album
     end
 
     def setGenres
+        if @metadata.genres.size > 1
+            "#{@metadata.genres[0]}, #{@metadata.genres[1]}"[0..20]
+        else
+            @metadata.genres[0]
+        end
     end
 
-    def setRelease
+    def setReleased
+        @metadata.release_date.split('-')[0]
     end
 
     def setPopularity
