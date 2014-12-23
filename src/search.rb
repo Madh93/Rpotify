@@ -1,7 +1,8 @@
 require_relative 'authentication'
+require_relative 'song'
+require_relative 'album'
 require 'terminal-table'
 require 'rspotify'
-require './song.rb'
 
 $RPOTIFY = File.expand_path("../../rpotify.sh", __FILE__)
 
@@ -18,7 +19,6 @@ class Search
 		rows = []
 
 		founds.each_with_index do |f,i|
-
 			s = Song.new(f)
 			rows << [i+1,s.name,s.artist,s.duration,s.popularity,s.album]
 		end
@@ -27,13 +27,7 @@ class Search
 		puts table
 		exit if max_founds == 0
 
-		loop do
-			print "\e[1mChoose:\e[0m "
-			option = STDIN.gets.chomp.to_i
-			option -= 1
-			exit if (option >= max_founds) || (option < 0)
-			system("#{$RPOTIFY} uri string:#{founds[option].uri}")
-		end
+		chooseOption founds,max_founds
 	end
 
 	def byAlbum
@@ -43,6 +37,16 @@ class Search
 
 	def byArtist
 		puts "artist: " + @query
+	end
+
+	def chooseOption founds, max
+		loop do
+			print "\e[1mChoose:\e[0m "
+			option = STDIN.gets.chomp.to_i
+			option -= 1
+			exit if (option >= max) || (option < 0)
+			system("#{$RPOTIFY} uri string:#{founds[option].uri}")
+		end		
 	end
 end
 
