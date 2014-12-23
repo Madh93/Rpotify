@@ -14,7 +14,6 @@ class Search
 
 	def bySong
 		founds = RSpotify::Base.search(@query, 'track')
-		max_founds = founds.size
 		rows = []
 
 		founds.each_with_index do |f,i|
@@ -24,12 +23,11 @@ class Search
 
 		table = Terminal::Table.new :title => "Showing results for \e[1m#{@query}\e[0m", :headings => ["#","Song","Artist","Duration","Popularity","Album"], :rows => rows
 		puts table
-		chooseOption(founds,max_founds)
+		chooseOption(founds,founds.size)
 	end
 
 	def byAlbum
 		founds = RSpotify::Base.search(@query, 'album')
-		max_founds = founds.size
 		rows = []
 
 		founds.each_with_index do |f,i|
@@ -37,9 +35,9 @@ class Search
 			rows << [i+1,a.name,a.artist,a.released,a.popularity,a.genres]
 		end		
 
-		table = Terminal::Table.new :title => "Showing results for \e[1m#{@query}\e[0m as Album", :headings => ["#","Song","Artist","Released","Popularity","Genres"], :rows => rows
+		table = Terminal::Table.new :title => "Showing results for \e[1m#{@query}\e[0m as Album", :headings => ["#","Album","Artist","Released","Popularity","Genres"], :rows => rows
 		puts table
-		chooseOption(founds,max_founds)		
+		chooseOption(founds,founds.size)		
 	end
 
 	def byArtist
