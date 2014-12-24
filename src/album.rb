@@ -1,6 +1,6 @@
 require_relative 'base'
 
-class Album
+class Album < Base
 
     def initialize metadata
         super(metadata,self.class)
