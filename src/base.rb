@@ -9,10 +9,10 @@ class Base
         @popularity = setPopularity
         @artist, @album, @duration, @genres, @released = nil
 
-        case type
-            when Song then setArtist; setAlbum; setDuration
-            when Album then setArtist; setGenres; setReleased
-            when Artist then setGenres
+        case
+            when type == Song then setArtist; setAlbum; setDuration
+            when type == Album then setArtist; setGenres; setReleased
+            when type == Artist then setGenres
         end
     end
 
@@ -27,32 +27,33 @@ class Base
     end    
 
     def setArtist
+
         if @metadata.artists.size > 1
-            "#{@metadata.artists[0].name}, #{@metadata.artists[1].name}"[0..25]
+            @artist = "#{@metadata.artists[0].name}, #{@metadata.artists[1].name}"[0..25]
         else
-            @metadata.artists[0].name[0..25]
+            @artist = @metadata.artists[0].name[0..25]
         end     
     end
 
     def setAlbum
-        @metadata.album.name[0..25]
+        @album = @metadata.album.name[0..25]
     end
 
     def setDuration
-        "#{@metadata.duration_ms/60000}'#{(@metadata.duration_ms/1000)%60}''"        
+        @duration = "#{@metadata.duration_ms/60000}'#{(@metadata.duration_ms/1000)%60}''"        
     end
 
 
     def setGenres
         if @metadata.genres.size > 1
-            "#{@metadata.genres[0]}, #{@metadata.genres[1]}"[0..20]
+            @genres = "#{@metadata.genres[0]}, #{@metadata.genres[1]}"[0..20]
         else
-            @metadata.genres[0]
+            @genres = @metadata.genres[0]
         end
     end
 
     def setReleased
-        @metadata.release_date.split('-')[0]
+        @released = @metadata.release_date.split('-')[0]
     end    
 
 end
