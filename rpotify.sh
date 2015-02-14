@@ -69,7 +69,7 @@ case "$1" in
 		stop) 			$PLAYER.Stop 		1>/dev/null 	;;
 		next) 			$PLAYER.Next 		1>/dev/null 	;;
 		prev) 			$PLAYER.Previous 	1>/dev/null 	;;
-		uri) 			$PLAYER.OpenUri $2 	1>/dev/null 	;;
+		uri) 			$PLAYER.OpenUri 'string:'$2 	1>/dev/null 	;;
 		status)			echo $status 						;;
 		up) 			control 'ctrl+Up' 					;;
 		down) 			control 'ctrl+Down'					;;

@@ -66,7 +66,7 @@ class Search
 			option = STDIN.gets.chomp.to_i
 			option -= 1
 			exit if (option >= max) || (option < 0)
-			system("#{$RPOTIFY} uri string:#{founds[option].uri}")
+			system("#{$RPOTIFY} uri #{founds[option].uri}")
 		end		
 	end
 end
